@@ -12,8 +12,16 @@ public class GreetingClient {
         System.out.println("Entering doGreet");
         GreetingServiceGrpc.GreetingServiceBlockingStub stub = GreetingServiceGrpc.newBlockingStub(channel);
         GreetingResponse response = stub.greet(GreetingRequest.newBuilder().setFirstName("Murali").build());
-
         System.out.println("Greeting: " + response.getResult());
+    }
+
+    private static void doGreetManyTimes(ManagedChannel channel){
+        System.out.println("Entering do greet many times");
+        GreetingServiceGrpc.GreetingServiceBlockingStub stub = GreetingServiceGrpc.newBlockingStub(channel);
+        GreetingRequest request = GreetingRequest.newBuilder().setFirstName("Murali").build();
+        stub.greetManyTimes(request).forEachRemaining(response -> {
+            System.out.println(response.getResult());
+        });
     }
 
 
@@ -29,6 +37,7 @@ public class GreetingClient {
 
         switch(args[0]){
             case "greet": doGreet(channel); break;
+            case "greet_many_times": doGreetManyTimes(channel); break;
             default:
                 System.out.println("Invalid argument: " + args[0]);
                 break;

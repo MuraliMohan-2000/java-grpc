@@ -1,0 +1,16 @@
+syntax="proto3";
+
+option java_package= "com.proto.primes";
+option java_multiple_files = true;
+
+message primesRequest{
+  int32 num1 = 1;
+}
+
+message primesResponse{
+  int32 primes = 1;
+}
+
+service primes {
+  rpc getPrimes(primesRequest) returns (stream primesResponse);
+}
