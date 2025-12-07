@@ -1,0 +1,19 @@
+syntax="proto3";
+
+package calc;
+
+option java_package = "com.proto.calc";
+option java_multiple_files = true;
+
+message sumRequest {
+  int32 num_one =1;
+  int32 num_two =2;
+}
+
+message sumResponse {
+  int32 sum = 1;
+}
+
+service calcService{
+  rpc sum(sumRequest) returns(sumResponse);
+}
